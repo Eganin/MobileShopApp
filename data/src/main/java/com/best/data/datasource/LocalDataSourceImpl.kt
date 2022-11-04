@@ -9,7 +9,7 @@ import com.best.domain.models.ProductBasketInfo
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-internal class LocalDataSourceImpl @Inject constructor(
+class LocalDataSourceImpl @Inject constructor(
     private val productInfoDao: ProductInfoDao
 ) : LocalDataSource {
     override suspend fun getHomeOtherInfo(): HomeOtherInfo {

@@ -14,5 +14,5 @@ interface ProductRepository {
 
     fun fetchDetailInfoProduct(): Flow<Resource<DetailProduct>>
 
-    fun updateBasket(productBasketInfo: ProductBasketInfo)
+    suspend fun updateBasket(productBasketInfo: ProductBasketInfo)
 }

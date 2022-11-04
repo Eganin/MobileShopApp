@@ -1,5 +1,6 @@
 package com.best.data.datasource
 
+import com.best.data.BaseTest
 import com.best.data.local.dto.ProductInfoDao
 import com.best.data.local.entities.ProductInfoEntity
 import com.best.data.mapper.toProductBasketInfo
@@ -12,7 +13,7 @@ import org.junit.Before
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
-internal class LocalDataSourceTest {
+internal class LocalDataSourceTest : BaseTest() {
 
     private lateinit var localDataSource: LocalDataSource
     private lateinit var dao: ProductInfoDao
@@ -59,22 +60,5 @@ internal class LocalDataSourceTest {
             )
         )
         assertThat(localDataSource.getHomeOtherInfo()).isEqualTo(info)
-    }
-
-    private class TestDao : ProductInfoDao {
-
-        private val listProducts = mutableListOf<ProductInfoEntity>()
-
-        override suspend fun insertProductInfo(productInfoEntity: ProductInfoEntity) {
-            listProducts.add(productInfoEntity)
-        }
-
-        override suspend fun clearProductInfo() {
-            listProducts.clear()
-        }
-
-        override suspend fun getAllProductInfo(): List<ProductInfoEntity> {
-            return listProducts
-        }
     }
 }

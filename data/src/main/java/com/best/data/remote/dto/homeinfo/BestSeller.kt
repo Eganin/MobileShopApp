@@ -2,7 +2,7 @@ package com.best.data.remote.dto.homeinfo
 
 import com.google.gson.annotations.SerializedName
 
-internal data class BestSeller(
+data class BestSeller(
 
     @SerializedName("id") var id: Int? = null,
     @SerializedName("is_favorites") var isFavorites: Boolean? = null,

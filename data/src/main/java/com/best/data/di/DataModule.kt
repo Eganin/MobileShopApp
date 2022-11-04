@@ -8,6 +8,7 @@ import com.best.data.datasource.RemoteDataSource
 import com.best.data.datasource.RemoteDataSourceImpl
 import com.best.data.local.database.ProductDatabase
 import com.best.data.remote.ProductApi
+import com.best.data.util.DefaultDispatchers
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
@@ -71,5 +72,11 @@ internal object DataModule {
     @Singleton
     fun provideRemoteDataSource(api: ProductApi): RemoteDataSource {
         return RemoteDataSourceImpl(api = api)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDispatchers(): DefaultDispatchers {
+        return DefaultDispatchers.Base()
     }
 }

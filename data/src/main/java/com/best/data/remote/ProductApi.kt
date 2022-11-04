@@ -4,7 +4,7 @@ import com.best.data.remote.dto.detailinfo.DetailInfoProduct
 import com.best.data.remote.dto.homeinfo.HomeInfo
 import retrofit2.http.GET
 
-internal interface ProductApi {
+interface ProductApi {
 
     @GET("v3/654bd15e-b121-49ba-a588-960956b15175")
     suspend fun getHomeInfo():HomeInfo

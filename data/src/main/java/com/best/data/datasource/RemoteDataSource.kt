@@ -1,9 +1,9 @@
 package com.best.data.datasource
 
-import com.best.data.remote.dto.detailinfo.DetailInfoProduct
 import com.best.data.remote.dto.homeinfo.HomeInfo
+import com.best.domain.models.DetailProduct
 
-internal interface RemoteDataSource :DataSource {
+interface RemoteDataSource :DataSource {
     suspend fun getHomeInfo():HomeInfo
-    suspend fun getDetailInfoProduct():DetailInfoProduct
+    suspend fun getDetailInfoProduct(): DetailProduct
 }

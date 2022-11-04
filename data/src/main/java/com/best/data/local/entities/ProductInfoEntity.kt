@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-internal data class ProductInfoEntity(
+data class ProductInfoEntity(
     @PrimaryKey
     val id : Int? =null,
     val title:String,
