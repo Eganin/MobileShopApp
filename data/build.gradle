@@ -46,6 +46,7 @@ dependencies {
     // json serialization dependency
     implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0'
     implementation 'com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0'
+    implementation 'com.google.code.gson:gson:2.10'
 
     // Room
     implementation "androidx.room:room-runtime:2.4.3"
