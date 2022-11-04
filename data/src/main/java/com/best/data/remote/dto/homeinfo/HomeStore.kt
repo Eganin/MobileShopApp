@@ -1,9 +1,8 @@
 package com.best.data.remote.dto.homeinfo
 
 import com.google.gson.annotations.SerializedName
-import kotlinx.serialization.SerialName
 
-data class HomeStore(
+internal data class HomeStore(
 
     @SerializedName("id") var id: Int? = null,
     @SerializedName("is_new") var isNew: Boolean? = null,

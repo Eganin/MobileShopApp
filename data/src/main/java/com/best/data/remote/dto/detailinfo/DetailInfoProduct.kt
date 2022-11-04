@@ -2,7 +2,7 @@ package com.best.data.remote.dto.detailinfo
 
 import com.google.gson.annotations.SerializedName
 
-data class DetailInfoProduct(
+internal data class DetailInfoProduct(
     @SerializedName("CPU") var CPU: String = "",
     @SerializedName("camera") var camera: String = "",
     @SerializedName("capacity") var capacity: List<String> = emptyList(),
