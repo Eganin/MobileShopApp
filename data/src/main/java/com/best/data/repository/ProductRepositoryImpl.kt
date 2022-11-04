@@ -27,7 +27,7 @@ class ProductRepositoryImpl @Inject constructor(
                 AllHomeInfo(
                     otherInfo = localDataSource.getHomeOtherInfo(),
                     homeStore = info.homeStore.map { it.toProduct() },
-                    bestSeller = info.bestSeller.map { it.toBestSellerProduct()  }
+                    bestSeller = info.bestSeller.map { it.toBestSellerProduct() }
                 )
             }
         }
@@ -50,7 +50,7 @@ class ProductRepositoryImpl @Inject constructor(
     }
 
     override suspend fun updateBasket(productBasketInfo: ProductBasketInfo) {
-        withContext(defaultDispatchers.io()){
+        withContext(defaultDispatchers.io()) {
             localDataSource.updateBasket(productBasketInfo = productBasketInfo)
         }
     }
