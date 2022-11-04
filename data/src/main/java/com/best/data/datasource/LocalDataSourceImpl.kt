@@ -2,6 +2,7 @@ package com.best.data.datasource
 
 import com.best.data.local.dto.ProductInfoDao
 import com.best.data.mapper.toProductBasketInfo
+import com.best.data.mapper.toProductInfoEntity
 import com.best.domain.models.Brand
 import com.best.domain.models.HomeOtherInfo
 import com.best.domain.models.ProductBasketInfo
@@ -35,6 +36,12 @@ internal class LocalDataSourceImpl @Inject constructor(
     override suspend fun getBasket(): List<ProductBasketInfo> {
         return withContext(defaultDispatcher) {
             productInfoDao.getAllProductInfo().map { it.toProductBasketInfo() }
+        }
+    }
+
+    override suspend fun updateBasket(productBasketInfo: ProductBasketInfo) {
+        withContext(defaultDispatcher) {
+            productInfoDao.insertProductInfo(productInfoEntity = productBasketInfo.toProductInfoEntity())
         }
     }
 }
