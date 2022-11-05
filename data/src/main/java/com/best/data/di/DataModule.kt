@@ -64,13 +64,23 @@ internal object DataModule {
 
     @Provides
     @Singleton
-    fun provideLocalDataSource(db: ProductDatabase,dispatchers: DefaultDispatchers): LocalDataSource {
-        return LocalDataSourceImpl(productInfoDao = db.productInfoDao, defaultDispatchers =dispatchers )
+    fun provideLocalDataSource(
+        db: ProductDatabase,
+        dispatchers: DefaultDispatchers
+    ): LocalDataSource {
+        return LocalDataSourceImpl(
+            productInfoDao = db.productInfoDao,
+            defaultDispatchers = dispatchers,
+            bestSellerDao = db.bestSellerDao
+        )
     }
 
     @Provides
     @Singleton
-    fun provideRemoteDataSource(api: ProductApi,dispatchers: DefaultDispatchers): RemoteDataSource {
+    fun provideRemoteDataSource(
+        api: ProductApi,
+        dispatchers: DefaultDispatchers
+    ): RemoteDataSource {
         return RemoteDataSourceImpl(api = api, defaultDispatchers = dispatchers)
     }
 

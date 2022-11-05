@@ -1,17 +1,19 @@
 package com.best.data.datasource.local
 
+import com.best.data.local.dao.BestSellerDao
 import com.best.data.local.dao.ProductInfoDao
+import com.best.data.mapper.toBestSellerEntity
+import com.best.data.mapper.toFavoriteProduct
 import com.best.data.mapper.toProductBasketInfo
 import com.best.data.mapper.toProductInfoEntity
 import com.best.data.util.DefaultDispatchers
-import com.best.domain.models.Brand
-import com.best.domain.models.HomeOtherInfo
-import com.best.domain.models.ProductBasketInfo
+import com.best.domain.models.*
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class LocalDataSourceImpl @Inject constructor(
     private val productInfoDao: ProductInfoDao,
+    private val bestSellerDao: BestSellerDao,
     private val defaultDispatchers: DefaultDispatchers
 ) : LocalDataSource {
     override suspend fun getHomeOtherInfo(): HomeOtherInfo {
@@ -44,6 +46,18 @@ class LocalDataSourceImpl @Inject constructor(
     override suspend fun updateBasket(productBasketInfo: ProductBasketInfo) {
         withContext(defaultDispatchers.io()) {
             productInfoDao.insertProductInfo(productInfoEntity = productBasketInfo.toProductInfoEntity())
+        }
+    }
+
+    override suspend fun updateFavoriteProduct(favoriteProduct: BestSellerProduct) {
+        withContext(defaultDispatchers.io()) {
+            bestSellerDao.insertBestSeller(bestSellerEntity = favoriteProduct.toBestSellerEntity())
+        }
+    }
+
+    override suspend fun getAllFavoriteProducts(): List<BestSellerProduct> {
+        return withContext(defaultDispatchers.io()) {
+            bestSellerDao.getAllBestSellers().map { it.toFavoriteProduct() }
         }
     }
 }

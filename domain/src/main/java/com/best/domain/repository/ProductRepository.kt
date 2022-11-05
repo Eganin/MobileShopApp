@@ -1,6 +1,7 @@
 package com.best.domain.repository
 
 import com.best.domain.models.AllHomeInfo
+import com.best.domain.models.BestSellerProduct
 import com.best.domain.models.DetailProduct
 import com.best.domain.models.ProductBasketInfo
 import com.best.domain.util.Resource
@@ -14,5 +15,9 @@ interface ProductRepository {
 
     fun fetchDetailInfoProduct(): Flow<Resource<DetailProduct>>
 
+    fun fetchAllFavouriteProducts(): Flow<Resource<List<BestSellerProduct>>>
+
     suspend fun updateBasket(productBasketInfo: ProductBasketInfo)
+
+    suspend fun updateFavoriteProduct(bestSellerProduct: BestSellerProduct)
 }

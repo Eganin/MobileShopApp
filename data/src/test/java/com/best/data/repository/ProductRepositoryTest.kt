@@ -5,11 +5,9 @@ import com.best.data.datasource.local.LocalDataSource
 import com.best.data.datasource.local.LocalDataSourceImpl
 import com.best.data.datasource.remote.RemoteDataSource
 import com.best.data.datasource.remote.RemoteDataSourceImpl
+import com.best.data.local.dao.BestSellerDao
 import com.best.data.local.dao.ProductInfoDao
-import com.best.data.mapper.toBestSellerProduct
-import com.best.data.mapper.toDetailProduct
-import com.best.data.mapper.toProduct
-import com.best.data.mapper.toProductBasketInfo
+import com.best.data.mapper.*
 import com.best.data.remote.api.ProductApi
 import com.best.data.util.DefaultDispatchers
 import com.best.domain.models.AllHomeInfo
@@ -31,14 +29,20 @@ internal class ProductRepositoryTest : BaseTest() {
     private lateinit var repository: ProductRepository
     private lateinit var api: ProductApi
     private lateinit var dao: ProductInfoDao
+    private lateinit var bestSellerDao: BestSellerDao
 
     @Before
     fun setup() {
         api = TestApi()
         dao = TestDao()
+        bestSellerDao = BestSellerTestDao()
         defaultDispatchers = DefaultDispatchers.Base()
         remoteDataSource = RemoteDataSourceImpl(api = api, defaultDispatchers)
-        localDataSource = LocalDataSourceImpl(productInfoDao = dao, defaultDispatchers)
+        localDataSource = LocalDataSourceImpl(
+            productInfoDao = dao,
+            bestSellerDao = bestSellerDao,
+            defaultDispatchers = defaultDispatchers
+        )
         repository = ProductRepositoryImpl(
             remoteDataSource = remoteDataSource,
             localDataSource = localDataSource,
@@ -95,5 +99,23 @@ internal class ProductRepositoryTest : BaseTest() {
     fun update_basket() = runTest {
         repository.updateBasket(productBasketInfo = basketInfo.toProductBasketInfo())
         assertThat(dao.getAllProductInfo()).isEqualTo(listOf(basketInfo))
+    }
+
+    @Test
+    fun fetch_all_favourite_products_and_update_favourite_product() = runTest {
+        repository.updateFavoriteProduct(
+            bestSellerProduct = bestSellers.first().toFavoriteProduct()
+        )
+        repository.fetchAllFavouriteProducts().collect {
+            if (it is Resource.Success) {
+                it.data?.let { bestSellerProducts ->
+                    assertThat(bestSellerProducts).isEqualTo(
+                        listOf(
+                            bestSellers.first().toFavoriteProduct()
+                        )
+                    )
+                }
+            }
+        }
     }
 }

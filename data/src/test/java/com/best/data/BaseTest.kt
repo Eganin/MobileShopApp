@@ -1,6 +1,8 @@
 package com.best.data
 
+import com.best.data.local.dao.BestSellerDao
 import com.best.data.local.dao.ProductInfoDao
+import com.best.data.local.entities.BestSellerEntity
 import com.best.data.local.entities.ProductInfoEntity
 import com.best.data.remote.api.ProductApi
 import com.best.data.remote.dto.basket.BasketResponse
@@ -12,16 +14,35 @@ import com.best.data.remote.dto.homeinfo.HomeStore
 
 internal open class BaseTest {
 
+    val bestSellers = listOf(
+        BestSellerEntity(
+            id=1,
+            isFavorites = true,
+            title = "Iphone 15",
+            priceWithoutDiscount = 5000,
+            discountPrice = 0,
+            picture = ""
+        ),
+        BestSellerEntity(
+            id=2,
+            isFavorites = true,
+            title = "Pixel 10",
+            priceWithoutDiscount = 3000,
+            discountPrice = 100,
+            picture = ""
+        ),
+    )
+
     val basketResponse = BasketResponse(
         basket = listOf(
             BasketResponseBody(
-                id=1,
+                id = 1,
                 images = "https://",
                 price = 1000,
                 title = "Test"
             ),
             BasketResponseBody(
-                id=2,
+                id = 2,
                 images = "https://",
                 price = 2000,
                 title = "Test Iphone 100"
@@ -32,7 +53,7 @@ internal open class BaseTest {
         total = 2
     )
 
-    val basketInfo=ProductInfoEntity(
+    val basketInfo = ProductInfoEntity(
         id = 0,
         title = "Samsung",
         price = 1000.0,
@@ -67,6 +88,23 @@ internal open class BaseTest {
         camera = "12px",
         price = 2000
     )
+
+    class BestSellerTestDao : BestSellerDao {
+
+        private val listBestSellers = mutableListOf<BestSellerEntity>()
+
+        override suspend fun insertBestSeller(bestSellerEntity: BestSellerEntity) {
+            listBestSellers.add(bestSellerEntity)
+        }
+
+        override suspend fun clearBestSellerTable() {
+            listBestSellers.clear()
+        }
+
+        override suspend fun getAllBestSellers(): List<BestSellerEntity> {
+            return listBestSellers
+        }
+    }
 
     class TestDao : ProductInfoDao {
 
@@ -123,13 +161,13 @@ internal open class BaseTest {
             return BasketResponse(
                 basket = listOf(
                     BasketResponseBody(
-                        id=1,
+                        id = 1,
                         images = "https://",
                         price = 1000,
                         title = "Test"
                     ),
                     BasketResponseBody(
-                        id=2,
+                        id = 2,
                         images = "https://",
                         price = 2000,
                         title = "Test Iphone 100"

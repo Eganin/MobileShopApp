@@ -6,6 +6,7 @@ import com.best.data.mapper.toBestSellerProduct
 import com.best.data.mapper.toProduct
 import com.best.data.util.DefaultDispatchers
 import com.best.domain.models.AllHomeInfo
+import com.best.domain.models.BestSellerProduct
 import com.best.domain.models.DetailProduct
 import com.best.domain.models.ProductBasketInfo
 import com.best.domain.repository.ProductRepository
@@ -53,9 +54,23 @@ class ProductRepositoryImpl @Inject constructor(
         }
     }
 
+    override fun fetchAllFavouriteProducts(): Flow<Resource<List<BestSellerProduct>>> {
+        return flow {
+            bodyForDataLoading(defaultDispatchers) {
+                localDataSource.getAllFavoriteProducts()
+            }
+        }
+    }
+
     override suspend fun updateBasket(productBasketInfo: ProductBasketInfo) {
         withContext(defaultDispatchers.io()) {
             localDataSource.updateBasket(productBasketInfo = productBasketInfo)
+        }
+    }
+
+    override suspend fun updateFavoriteProduct(bestSellerProduct: BestSellerProduct) {
+        withContext(defaultDispatchers.io()) {
+            localDataSource.updateFavoriteProduct(favoriteProduct = bestSellerProduct)
         }
     }
 }
