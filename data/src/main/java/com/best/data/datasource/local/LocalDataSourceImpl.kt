@@ -1,8 +1,9 @@
-package com.best.data.datasource
+package com.best.data.datasource.local
 
 import com.best.data.local.dto.ProductInfoDao
 import com.best.data.mapper.toProductBasketInfo
 import com.best.data.mapper.toProductInfoEntity
+import com.best.data.util.DefaultDispatchers
 import com.best.domain.models.Brand
 import com.best.domain.models.HomeOtherInfo
 import com.best.domain.models.ProductBasketInfo
@@ -10,12 +11,13 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class LocalDataSourceImpl @Inject constructor(
-    private val productInfoDao: ProductInfoDao
+    private val productInfoDao: ProductInfoDao,
+    private val defaultDispatchers: DefaultDispatchers
 ) : LocalDataSource {
     override suspend fun getHomeOtherInfo(): HomeOtherInfo {
         return HomeOtherInfo(
             geolocationName = "Zihuaatanejo, Gro",
-            categories = listOf("phones", "computer", "Health", "Books"),
+            categories = listOf("Phones", "Computer", "Health", "Books"),
             brands = listOf(
                 Brand(
                     name = "Samsung",
@@ -34,13 +36,13 @@ class LocalDataSourceImpl @Inject constructor(
     }
 
     override suspend fun getBasket(): List<ProductBasketInfo> {
-        return withContext(defaultDispatcher) {
+        return withContext(defaultDispatchers.io()) {
             productInfoDao.getAllProductInfo().map { it.toProductBasketInfo() }
         }
     }
 
     override suspend fun updateBasket(productBasketInfo: ProductBasketInfo) {
-        withContext(defaultDispatcher) {
+        withContext(defaultDispatchers.io()) {
             productInfoDao.insertProductInfo(productInfoEntity = productBasketInfo.toProductInfoEntity())
         }
     }

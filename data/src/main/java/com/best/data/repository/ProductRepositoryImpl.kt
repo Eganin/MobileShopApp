@@ -1,7 +1,7 @@
 package com.best.data.repository
 
-import com.best.data.datasource.LocalDataSource
-import com.best.data.datasource.RemoteDataSource
+import com.best.data.datasource.local.LocalDataSource
+import com.best.data.datasource.remote.RemoteDataSource
 import com.best.data.mapper.toBestSellerProduct
 import com.best.data.mapper.toProduct
 import com.best.data.util.DefaultDispatchers
@@ -36,7 +36,11 @@ class ProductRepositoryImpl @Inject constructor(
     override fun fetchBasketForUser(): Flow<Resource<List<ProductBasketInfo>>> {
         return flow {
             bodyForDataLoading(defaultDispatchers) {
-                localDataSource.getBasket()
+                val result = mutableListOf<ProductBasketInfo>().also {
+                    it.addAll(remoteDataSource.getBasketResponse())
+                    it.addAll(localDataSource.getBasket())
+                }.toSet().toList()
+                result
             }
         }
     }

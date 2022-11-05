@@ -1,9 +1,9 @@
-package com.best.data.datasource
+package com.best.data.datasource.local
 
 import com.best.domain.models.HomeOtherInfo
 import com.best.domain.models.ProductBasketInfo
 
-interface LocalDataSource : DataSource {
+interface LocalDataSource {
 
     suspend fun getHomeOtherInfo():HomeOtherInfo
 

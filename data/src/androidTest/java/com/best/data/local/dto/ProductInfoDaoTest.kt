@@ -37,14 +37,12 @@ internal class ProductInfoDaoTest {
     private val insertEntity1 = ProductInfoEntity(
         id = 1,
         title = "Samsung",
-        countProduct = 1,
         price = 300.0,
         imageLink = "https://google.com"
     )
     private val insertEntity2 = ProductInfoEntity(
         id = 2,
         title = "Realme",
-        countProduct = 3,
         price = 250.0,
         imageLink = "https://google.com"
     )

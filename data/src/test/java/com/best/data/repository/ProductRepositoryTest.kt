@@ -1,18 +1,19 @@
 package com.best.data.repository
 
 import com.best.data.BaseTest
-import com.best.data.datasource.LocalDataSource
-import com.best.data.datasource.LocalDataSourceImpl
-import com.best.data.datasource.RemoteDataSource
-import com.best.data.datasource.RemoteDataSourceImpl
+import com.best.data.datasource.local.LocalDataSource
+import com.best.data.datasource.local.LocalDataSourceImpl
+import com.best.data.datasource.remote.RemoteDataSource
+import com.best.data.datasource.remote.RemoteDataSourceImpl
 import com.best.data.local.dto.ProductInfoDao
 import com.best.data.mapper.toBestSellerProduct
 import com.best.data.mapper.toDetailProduct
 import com.best.data.mapper.toProduct
 import com.best.data.mapper.toProductBasketInfo
-import com.best.data.remote.ProductApi
+import com.best.data.remote.api.ProductApi
 import com.best.data.util.DefaultDispatchers
 import com.best.domain.models.AllHomeInfo
+import com.best.domain.models.ProductBasketInfo
 import com.best.domain.repository.ProductRepository
 import com.best.domain.util.Resource
 import com.google.common.truth.Truth.assertThat
@@ -36,8 +37,8 @@ internal class ProductRepositoryTest : BaseTest() {
         api = TestApi()
         dao = TestDao()
         defaultDispatchers = DefaultDispatchers.Base()
-        remoteDataSource = RemoteDataSourceImpl(api = api)
-        localDataSource = LocalDataSourceImpl(productInfoDao = dao)
+        remoteDataSource = RemoteDataSourceImpl(api = api, defaultDispatchers)
+        localDataSource = LocalDataSourceImpl(productInfoDao = dao, defaultDispatchers)
         repository = ProductRepositoryImpl(
             remoteDataSource = remoteDataSource,
             localDataSource = localDataSource,
@@ -69,7 +70,11 @@ internal class ProductRepositoryTest : BaseTest() {
         repository.fetchBasketForUser().collect {
             if (it is Resource.Success) {
                 it.data?.let { productBasketInfo ->
-                    assertThat(productBasketInfo).isEqualTo(listOf(basketInfo.toProductBasketInfo()))
+                    val expected = mutableListOf<ProductBasketInfo>().also {
+                        it.addAll(basketResponse.basket.map { it.toProductBasketInfo() })
+                        it.add(basketInfo.toProductBasketInfo())
+                    }.toSet().toList()
+                    assertThat(productBasketInfo).isEqualTo(expected)
                 }
             }
         }

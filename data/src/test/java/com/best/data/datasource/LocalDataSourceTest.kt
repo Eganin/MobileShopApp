@@ -1,9 +1,12 @@
 package com.best.data.datasource
 
 import com.best.data.BaseTest
+import com.best.data.datasource.local.LocalDataSource
+import com.best.data.datasource.local.LocalDataSourceImpl
 import com.best.data.local.dto.ProductInfoDao
 import com.best.data.local.entities.ProductInfoEntity
 import com.best.data.mapper.toProductBasketInfo
+import com.best.data.util.DefaultDispatchers
 import com.best.domain.models.Brand
 import com.best.domain.models.HomeOtherInfo
 import com.google.common.truth.Truth.assertThat
@@ -21,7 +24,10 @@ internal class LocalDataSourceTest : BaseTest() {
     @Before
     fun setup() {
         dao = TestDao()
-        localDataSource = LocalDataSourceImpl(productInfoDao = dao)
+        localDataSource = LocalDataSourceImpl(
+            productInfoDao = dao,
+            defaultDispatchers = DefaultDispatchers.Base()
+        )
     }
 
     @Test
@@ -31,8 +37,7 @@ internal class LocalDataSourceTest : BaseTest() {
                 id = 0,
                 title = "Samsung",
                 price = 1000.0,
-                imageLink = "https://",
-                countProduct = 1,
+                imageLink = "https://"
             )
         )
         assertThat(localDataSource.getBasket()).isEqualTo(
@@ -43,7 +48,7 @@ internal class LocalDataSourceTest : BaseTest() {
     fun test_get_home_other_info() = runTest {
         val info = HomeOtherInfo(
             geolocationName = "Zihuaatanejo, Gro",
-            categories = listOf("phones", "computer", "Health", "Books"),
+            categories = listOf("Phones", "Computer", "Health", "Books"),
             brands = listOf(
                 Brand(
                     name = "Samsung",

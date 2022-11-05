@@ -2,12 +2,12 @@ package com.best.data.di
 
 import android.app.Application
 import androidx.room.Room
-import com.best.data.datasource.LocalDataSource
-import com.best.data.datasource.LocalDataSourceImpl
-import com.best.data.datasource.RemoteDataSource
-import com.best.data.datasource.RemoteDataSourceImpl
+import com.best.data.datasource.local.LocalDataSource
+import com.best.data.datasource.local.LocalDataSourceImpl
+import com.best.data.datasource.remote.RemoteDataSource
+import com.best.data.datasource.remote.RemoteDataSourceImpl
 import com.best.data.local.database.ProductDatabase
-import com.best.data.remote.ProductApi
+import com.best.data.remote.api.ProductApi
 import com.best.data.util.DefaultDispatchers
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
@@ -64,14 +64,14 @@ internal object DataModule {
 
     @Provides
     @Singleton
-    fun provideLocalDataSource(db: ProductDatabase): LocalDataSource {
-        return LocalDataSourceImpl(productInfoDao = db.productInfoDao)
+    fun provideLocalDataSource(db: ProductDatabase,dispatchers: DefaultDispatchers): LocalDataSource {
+        return LocalDataSourceImpl(productInfoDao = db.productInfoDao, defaultDispatchers =dispatchers )
     }
 
     @Provides
     @Singleton
-    fun provideRemoteDataSource(api: ProductApi): RemoteDataSource {
-        return RemoteDataSourceImpl(api = api)
+    fun provideRemoteDataSource(api: ProductApi,dispatchers: DefaultDispatchers): RemoteDataSource {
+        return RemoteDataSourceImpl(api = api, defaultDispatchers = dispatchers)
     }
 
     @Provides

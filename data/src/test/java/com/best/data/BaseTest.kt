@@ -2,7 +2,9 @@ package com.best.data
 
 import com.best.data.local.dto.ProductInfoDao
 import com.best.data.local.entities.ProductInfoEntity
-import com.best.data.remote.ProductApi
+import com.best.data.remote.api.ProductApi
+import com.best.data.remote.dto.basket.BasketResponse
+import com.best.data.remote.dto.basket.BasketResponseBody
 import com.best.data.remote.dto.detailinfo.DetailInfoProduct
 import com.best.data.remote.dto.homeinfo.BestSeller
 import com.best.data.remote.dto.homeinfo.HomeInfo
@@ -10,12 +12,31 @@ import com.best.data.remote.dto.homeinfo.HomeStore
 
 internal open class BaseTest {
 
+    val basketResponse = BasketResponse(
+        basket = listOf(
+            BasketResponseBody(
+                id=1,
+                images = "https://",
+                price = 1000,
+                title = "Test"
+            ),
+            BasketResponseBody(
+                id=2,
+                images = "https://",
+                price = 2000,
+                title = "Test Iphone 100"
+            )
+        ),
+        delivery = "",
+        id = "4",
+        total = 2
+    )
+
     val basketInfo=ProductInfoEntity(
         id = 0,
         title = "Samsung",
         price = 1000.0,
         imageLink = "https://",
-        countProduct = 1,
     )
 
     val homeInfo = HomeInfo(
@@ -95,6 +116,28 @@ internal open class BaseTest {
                 CPU = "nvidia",
                 camera = "12px",
                 price = 2000
+            )
+        }
+
+        override suspend fun getBasketResponse(): BasketResponse {
+            return BasketResponse(
+                basket = listOf(
+                    BasketResponseBody(
+                        id=1,
+                        images = "https://",
+                        price = 1000,
+                        title = "Test"
+                    ),
+                    BasketResponseBody(
+                        id=2,
+                        images = "https://",
+                        price = 2000,
+                        title = "Test Iphone 100"
+                    )
+                ),
+                delivery = "",
+                id = "4",
+                total = 2
             )
         }
     }

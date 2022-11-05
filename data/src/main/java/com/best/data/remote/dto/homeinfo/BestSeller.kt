@@ -2,6 +2,7 @@ package com.best.data.remote.dto.homeinfo
 
 import com.google.gson.annotations.SerializedName
 
+@kotlinx.serialization.Serializable
 data class BestSeller(
 
     @SerializedName("id") var id: Int? = null,

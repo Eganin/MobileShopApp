@@ -9,6 +9,5 @@ fun ProductBasketInfo.toProductInfoEntity(): ProductInfoEntity {
         title = title,
         price = price,
         imageLink = imageLink,
-        countProduct = countProduct
     )
 }
