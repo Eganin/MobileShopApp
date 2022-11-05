@@ -3,7 +3,7 @@ package com.best.data.datasource
 import com.best.data.BaseTest
 import com.best.data.datasource.local.LocalDataSource
 import com.best.data.datasource.local.LocalDataSourceImpl
-import com.best.data.local.dto.ProductInfoDao
+import com.best.data.local.dao.ProductInfoDao
 import com.best.data.local.entities.ProductInfoEntity
 import com.best.data.mapper.toProductBasketInfo
 import com.best.data.util.DefaultDispatchers

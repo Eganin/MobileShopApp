@@ -1,4 +1,4 @@
-package com.best.data.local.dto
+package com.best.data.local.dao
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.SmallTest
@@ -59,11 +59,22 @@ internal class ProductInfoDaoTest {
     }
 
     @Test
-    fun insertProduct() = runBlockingTest{
+    fun insertAndGetProduct() = runTest{
         dao.insertProductInfo(productInfoEntity = insertEntity1)
         dao.insertProductInfo(productInfoEntity = insertEntity2)
         val allItems = dao.getAllProductInfo()
         val expectedList = listOf(insertEntity1,insertEntity2)
         assertThat(allItems).isEqualTo(expectedList)
+    }
+
+    @Test
+    fun clearProduct() = runTest {
+        dao.insertProductInfo(productInfoEntity = insertEntity1)
+        dao.insertProductInfo(productInfoEntity = insertEntity2)
+        val allItems = dao.getAllProductInfo()
+        val expectedList = listOf(insertEntity1,insertEntity2)
+        assertThat(allItems).isEqualTo(expectedList)
+        dao.clearProductInfo()
+        assertThat(dao.getAllProductInfo()).isEmpty()
     }
 }

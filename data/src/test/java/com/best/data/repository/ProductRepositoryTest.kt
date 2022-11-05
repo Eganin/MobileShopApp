@@ -5,7 +5,7 @@ import com.best.data.datasource.local.LocalDataSource
 import com.best.data.datasource.local.LocalDataSourceImpl
 import com.best.data.datasource.remote.RemoteDataSource
 import com.best.data.datasource.remote.RemoteDataSourceImpl
-import com.best.data.local.dto.ProductInfoDao
+import com.best.data.local.dao.ProductInfoDao
 import com.best.data.mapper.toBestSellerProduct
 import com.best.data.mapper.toDetailProduct
 import com.best.data.mapper.toProduct

@@ -1,6 +1,6 @@
 package com.best.data
 
-import com.best.data.local.dto.ProductInfoDao
+import com.best.data.local.dao.ProductInfoDao
 import com.best.data.local.entities.ProductInfoEntity
 import com.best.data.remote.api.ProductApi
 import com.best.data.remote.dto.basket.BasketResponse

@@ -1,6 +1,6 @@
 package com.best.data.datasource.local
 
-import com.best.data.local.dto.ProductInfoDao
+import com.best.data.local.dao.ProductInfoDao
 import com.best.data.mapper.toProductBasketInfo
 import com.best.data.mapper.toProductInfoEntity
 import com.best.data.util.DefaultDispatchers
