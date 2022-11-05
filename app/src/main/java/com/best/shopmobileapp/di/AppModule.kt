@@ -16,8 +16,7 @@ internal object AppModule {
     @Singleton
     @Provides
     fun provideProductUseCases(
-        productRepository: ProductRepository,
-        defaultDispatchers: DefaultDispatchers
+        productRepository: ProductRepository
     ): ProductUseCases {
         return ProductUseCases(
             getHomeInfo = GetHomeInfo(repository = productRepository),
@@ -26,11 +25,11 @@ internal object AppModule {
             getFavoriteProducts = GetFavoriteProducts(repository = productRepository),
             updateBasket = UpdateBasket(
                 repository = productRepository,
-                defaultDispatchers = defaultDispatchers
+                defaultDispatchers = DefaultDispatchers.Base()
             ),
             updateFavoriteProduct = UpdateFavoriteProduct(
                 repository = productRepository,
-                defaultDispatchers = defaultDispatchers
+                defaultDispatchers = DefaultDispatchers.Base()
             )
         )
     }

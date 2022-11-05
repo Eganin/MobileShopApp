@@ -5,11 +5,11 @@ import com.best.domain.models.BestSellerProduct
 
 fun BestSeller.toBestSellerProduct(): BestSellerProduct {
     return BestSellerProduct(
-        id = id ?: 0,
-        isFavorites = isFavorites ?: false,
+        id = id ,
+        isFavorites = is_favorites,
         title = title,
-        priceWithoutDiscount = priceWithoutDiscount ?: 0,
-        discountPrice = discountPrice ?: 0,
+        priceWithoutDiscount = price_without_discount,
+        discountPrice = discount_price,
         picture = picture
     )
 }

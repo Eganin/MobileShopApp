@@ -1,5 +1,6 @@
 package com.best.data.repository
 
+import android.util.Log
 import com.best.data.datasource.local.LocalDataSource
 import com.best.data.datasource.remote.RemoteDataSource
 import com.best.data.mapper.toBestSellerProduct
@@ -27,8 +28,8 @@ class ProductRepositoryImpl @Inject constructor(
                 val info = remoteDataSource.getHomeInfo()
                 AllHomeInfo(
                     otherInfo = localDataSource.getHomeOtherInfo(),
-                    homeStore = info.homeStore.map { it.toProduct() },
-                    bestSeller = info.bestSeller.map { it.toBestSellerProduct() }
+                    homeStore = info.home_store.map { it.toProduct() },
+                    bestSeller = info.best_seller.map { it.toBestSellerProduct() }
                 )
             }
         }

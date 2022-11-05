@@ -42,7 +42,10 @@ internal object DataModule {
     @Provides
     @Singleton
     fun provideProductApi(client: OkHttpClient): ProductApi {
-        val json = Json { ignoreUnknownKeys = true }
+        val json = Json {
+            ignoreUnknownKeys = true
+            coerceInputValues = true
+        }
         return Retrofit.Builder()
             .baseUrl("https://run.mocky.io/")
             .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
@@ -53,7 +56,7 @@ internal object DataModule {
 
     @Provides
     @Singleton
-    fun provideProductDatabase(@ApplicationContext app: Application): ProductDatabase {
+    fun provideProductDatabase(app: Application): ProductDatabase {
         return Room.databaseBuilder(
             app,
             ProductDatabase::class.java,
