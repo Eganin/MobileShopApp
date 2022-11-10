@@ -5,11 +5,11 @@ import com.google.gson.annotations.SerializedName
 @kotlinx.serialization.Serializable
 data class BestSeller(
 
-    @SerializedName("id") var id: Int? = null,
-    @SerializedName("is_favorites") var isFavorites: Boolean? = null,
-    @SerializedName("title") var title: String = "",
-    @SerializedName("price_without_discount") var priceWithoutDiscount: Int? = null,
-    @SerializedName("discount_price") var discountPrice: Int? = null,
-    @SerializedName("picture") var picture: String = ""
+    @SerializedName("id") val id : Int,
+    @SerializedName("is_favorites") val is_favorites : Boolean,
+    @SerializedName("title") val title : String,
+    @SerializedName("price_without_discount") val price_without_discount : Int,
+    @SerializedName("discount_price") val discount_price : Int,
+    @SerializedName("picture") val picture : String
 
 )

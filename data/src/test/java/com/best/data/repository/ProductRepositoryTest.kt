@@ -59,8 +59,8 @@ internal class ProductRepositoryTest : BaseTest() {
                     assertThat(allHomeInfo).isEqualTo(
                         AllHomeInfo(
                             otherInfo = otherInfo,
-                            homeStore = homeInfo.homeStore.map { it.toProduct() },
-                            bestSeller = homeInfo.bestSeller.map { it.toBestSellerProduct() }
+                            homeStore = homeInfo.home_store.map { it.toProduct() },
+                            bestSeller = homeInfo.best_seller.map { it.toBestSellerProduct() }
                         )
                     )
                 }

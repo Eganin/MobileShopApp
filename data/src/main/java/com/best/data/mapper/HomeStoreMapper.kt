@@ -5,11 +5,11 @@ import com.best.domain.models.Product
 
 fun HomeStore.toProduct(): Product {
     return Product(
-        id = id ?: 0,
-        isNew = isNew ?: false,
+        id = id ,
+        isNew = is_new ?:false,
         title = title,
         subtitle = subtitle,
         picture = picture,
-        isBuy = isBuy ?: false
+        isBuy = is_buy
     )
 }

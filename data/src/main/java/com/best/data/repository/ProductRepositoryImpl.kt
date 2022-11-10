@@ -27,8 +27,8 @@ class ProductRepositoryImpl @Inject constructor(
                 val info = remoteDataSource.getHomeInfo()
                 AllHomeInfo(
                     otherInfo = localDataSource.getHomeOtherInfo(),
-                    homeStore = info.homeStore.map { it.toProduct() },
-                    bestSeller = info.bestSeller.map { it.toBestSellerProduct() }
+                    homeStore = info.home_store.map { it.toProduct() },
+                    bestSeller = info.best_seller.map { it.toBestSellerProduct() }
                 )
             }
         }

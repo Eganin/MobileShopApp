@@ -61,23 +61,23 @@ internal open class BaseTest {
     )
 
     val homeInfo = HomeInfo(
-        homeStore = listOf(
+        home_store = listOf(
             HomeStore(
                 id = 0,
-                isNew = true,
+                is_new = true,
                 title = "Iphone",
                 subtitle = "12 pro max",
                 picture = "",
-                isBuy = true
+                is_buy = true
             )
         ),
-        bestSeller = listOf(
+        best_seller = listOf(
             BestSeller(
                 id = 1,
-                isFavorites = true,
+                is_favorites = true,
                 title = "Samsung",
-                priceWithoutDiscount = 12,
-                discountPrice = 0,
+                price_without_discount = 12,
+                discount_price = 0,
                 picture = ""
             )
         )
@@ -126,23 +126,23 @@ internal open class BaseTest {
     class TestApi : ProductApi {
         override suspend fun getHomeInfo(): HomeInfo {
             return HomeInfo(
-                homeStore = listOf(
+                home_store = listOf(
                     HomeStore(
                         id = 0,
-                        isNew = true,
+                        is_new = true,
                         title = "Iphone",
                         subtitle = "12 pro max",
                         picture = "",
-                        isBuy = true
+                        is_buy = true
                     )
                 ),
-                bestSeller = listOf(
+                best_seller = listOf(
                     BestSeller(
                         id = 1,
-                        isFavorites = true,
+                        is_favorites = true,
                         title = "Samsung",
-                        priceWithoutDiscount = 12,
-                        discountPrice = 0,
+                        price_without_discount = 12,
+                        discount_price = 0,
                         picture = ""
                     )
                 )

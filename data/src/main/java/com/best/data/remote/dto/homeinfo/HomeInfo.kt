@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 @kotlinx.serialization.Serializable
 data class HomeInfo(
 
-    @SerializedName("home_store") var homeStore: List<HomeStore> = emptyList(),
-    @SerializedName("best_seller") var bestSeller: List<BestSeller> = emptyList()
+    @SerializedName("home_store") val home_store : List<HomeStore>,
+    @SerializedName("best_seller") val best_seller : List<BestSeller>
 
 )
