@@ -1,6 +1,5 @@
 package com.best.data.repository
 
-import android.util.Log
 import com.best.data.datasource.local.LocalDataSource
 import com.best.data.datasource.remote.RemoteDataSource
 import com.best.data.mapper.toBestSellerProduct
